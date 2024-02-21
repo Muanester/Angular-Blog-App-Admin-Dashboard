@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoriesService } from '../../services/categories.service';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-new-post',
@@ -7,13 +13,27 @@ import { CategoriesService } from '../../services/categories.service';
   styleUrl: './new-post.component.css',
 })
 export class NewPostComponent implements OnInit {
-  constructor(private categoryService: CategoriesService) {}
-
-  permalink: string = '';
+  permaLink: string = '';
   imgSrc: any = './assets/placeholder.png';
   selectedImg: any;
 
   categories: Array<any>;
+
+  postForm: FormGroup;
+
+  constructor(
+    private categoryService: CategoriesService,
+    private fb: FormBuilder
+  ) {
+    this.postForm = this.fb.group({
+      title: ['', [Validators.required, Validators.minLength(10)]],
+      permalink: new FormControl({ value: this.permaLink, disabled: true }),
+      excerpt: ['', [Validators.required, Validators.minLength(50)]],
+      category: ['', Validators.required],
+      postImg: ['', Validators.required],
+      content: ['', Validators.required],
+    });
+  }
 
   ngOnInit(): void {
     this.categoryService.loadData().subscribe({
@@ -23,9 +43,13 @@ export class NewPostComponent implements OnInit {
     });
   }
 
+  get fc() {
+    return this.postForm.controls;
+  }
+
   onTitleChanged(event: any) {
     const title = event.target.value;
-    this.permalink = title.replaceAll(' ', '-');
+    this.permaLink = title.replaceAll(' ', '-');
   }
 
   showPreview(event: any) {

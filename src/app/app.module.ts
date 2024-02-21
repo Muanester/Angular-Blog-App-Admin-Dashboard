@@ -16,7 +16,7 @@ import { FooterComponent } from './layouts/footer/footer.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { environment } from '../environments/environment.development';
 import { CategoriesComponent } from './categories/categories.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AllPostComponent } from './post/all-post/all-post.component';
@@ -42,6 +42,7 @@ import { NewPostComponent } from './post/new-post/new-post.component';
     ToastrModule.forRoot(),
     AngularEditorModule,
     HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [provideClientHydration()],
   bootstrap: [AppComponent],
