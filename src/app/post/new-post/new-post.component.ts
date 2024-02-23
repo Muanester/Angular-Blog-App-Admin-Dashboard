@@ -6,6 +6,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Post } from '../../models/post';
 
 @Component({
   selector: 'app-new-post',
@@ -60,5 +61,25 @@ export class NewPostComponent implements OnInit {
 
     reader.readAsDataURL(event.target.files[0]);
     this.selectedImg = event.target.files[0];
+  }
+
+  onSubmit() {
+    console.log(this.postForm.value);
+
+    const postData: Post = {
+      title: this.postForm.value.title,
+      permalink: this.postForm.value.permalink,
+      category: {
+        categoryId: '',
+        category: '',
+      },
+      postImgPath: '',
+      excerpt: this.postForm.value.excerpt,
+      content: this.postForm.value.content,
+      isFeatured: false,
+      views: 0,
+      status: 'new',
+      createdAt: new Date(),
+    };
   }
 }
