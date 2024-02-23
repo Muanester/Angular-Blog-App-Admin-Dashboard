@@ -6,6 +6,8 @@ import {
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -43,6 +45,7 @@ import { NewPostComponent } from './post/new-post/new-post.component';
     AngularEditorModule,
     HttpClientModule,
     ReactiveFormsModule,
+    AngularFireStorageModule,
   ],
   providers: [provideClientHydration()],
   bootstrap: [AppComponent],

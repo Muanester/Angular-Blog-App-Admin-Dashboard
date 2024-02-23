@@ -97,8 +97,11 @@
               'is-invalid': fc['category'].touched && fc['category'].invalid
             }"
           >
-            <option selected disabled>Please select a category</option>
-            <option *ngFor="let category of categories">
+            <option value="">Please select a category</option>
+            <option
+              *ngFor="let category of categories"
+              value="{{ category.id }}-{{ category.data.category }}"
+            >
               {{ category.data.category }}
             </option>
           </select>
