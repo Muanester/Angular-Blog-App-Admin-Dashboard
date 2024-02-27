@@ -63,8 +63,6 @@ export class NewPostComponent implements OnInit {
 
     reader.readAsDataURL(event.target.files[0]);
     this.selectedImg = event.target.files[0];
-
-    this.postService.uploadImage(this.selectedImg);
   }
 
   onSubmit() {
@@ -72,7 +70,7 @@ export class NewPostComponent implements OnInit {
 
     const postData: Post = {
       title: this.postForm.value.title,
-      permalink: this.postForm.value.permalink,
+      permalink: 'permalink',
       category: {
         categoryId: splitted[0],
         category: splitted[1],
@@ -85,6 +83,10 @@ export class NewPostComponent implements OnInit {
       status: 'new',
       createdAt: new Date(),
     };
-    console.log(postData);
+
+    this.postService.uploadImage(this.selectedImg, postData);
+
+    this.postForm.reset();
+    this.imgSrc = './assets/placeholder.png';
   }
 }
