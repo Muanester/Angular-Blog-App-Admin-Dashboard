@@ -16,7 +16,12 @@ export class PostsService {
     private router: Router
   ) {}
 
-  uploadImage(selectedImage: any, postData: any) {
+  uploadImage(
+    selectedImage: any,
+    postData: any,
+    formStatus: string,
+    id: string
+  ) {
     const filePath = `postIMG/${Date.now()}`;
 
     this.storage.upload(filePath, selectedImage).then(() => {
@@ -26,7 +31,12 @@ export class PostsService {
         .subscribe({
           next: (URL) => {
             postData.postImgPath = URL;
-            this.saveData(postData);
+
+            if (formStatus == 'Edit Post') {
+              this.updateData(id, postData);
+            } else {
+              this.saveData(postData);
+            }
           },
         });
     });
@@ -59,5 +69,40 @@ export class PostsService {
           });
         })
       );
+  }
+
+  loadOneData(id: string) {
+    return this.afs.collection('posts').doc(id).valueChanges();
+  }
+
+  updateData(id: string, postData: any) {
+    this.afs
+      .collection('posts')
+      .doc(id)
+      .update(postData)
+      .then(() => {
+        this.toastr.success('Post Updated Successfully..!');
+
+        this.router.navigate(['/posts']);
+      });
+  }
+
+  deleteImg(postImgPath: any, id: string) {
+    this.storage.storage
+      .refFromURL(postImgPath)
+      .delete()
+      .then(() => {
+        this.deleteData(id);
+      });
+  }
+
+  deleteData(id: string) {
+    this.afs
+      .collection('posts')
+      .doc(id)
+      .delete()
+      .then(() => {
+        this.toastr.warning('Post Deleted Successfully..!');
+      });
   }
 }
