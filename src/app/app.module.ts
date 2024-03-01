@@ -7,6 +7,7 @@ import {
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { HttpClientModule } from '@angular/common/http';
@@ -23,6 +24,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AllPostComponent } from './post/all-post/all-post.component';
 import { NewPostComponent } from './post/new-post/new-post.component';
+import { LoginComponent } from './auth/login/login.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import { NewPostComponent } from './post/new-post/new-post.component';
     CategoriesComponent,
     AllPostComponent,
     NewPostComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +49,7 @@ import { NewPostComponent } from './post/new-post/new-post.component';
     HttpClientModule,
     ReactiveFormsModule,
     AngularFireStorageModule,
+    AngularFireAuthModule,
   ],
   providers: [provideClientHydration()],
   bootstrap: [AppComponent],
