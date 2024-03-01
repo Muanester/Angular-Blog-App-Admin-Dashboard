@@ -105,4 +105,14 @@ export class PostsService {
         this.toastr.warning('Post Deleted Successfully..!');
       });
   }
+
+  markFeatured(id: string, featuredData: any) {
+    this.afs
+      .collection('posts')
+      .doc(id)
+      .update(featuredData)
+      .then(() => {
+        this.toastr.info('Featured Status Updated..!');
+      });
+  }
 }
